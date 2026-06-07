@@ -29,12 +29,29 @@
         <meta name="description" content="{{ $finalDesc }}">
         <meta name="keywords" content="{{ $finalKeywords }}">
         <meta name="author" content="{{ $siteName }}">
-        
-        <!-- Open Graph / SEO -->
+        <meta name="robots" content="index, follow">
+        <link rel="canonical" href="{{ url()->current() }}">
+
+        <!-- Open Graph / Facebook -->
         <meta property="og:title" content="{{ $finalTitle }}">
         <meta property="og:description" content="{{ $finalDesc }}">
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{ url()->current() }}">
+        <meta property="og:locale" content="id_ID">
+        <meta property="og:site_name" content="{{ $siteName }}">
+        @if($siteLogo)
+        <meta property="og:image" content="{{ Storage::url($siteLogo) }}">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        @endif
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ $finalTitle }}">
+        <meta name="twitter:description" content="{{ $finalDesc }}">
+        @if($siteLogo)
+        <meta name="twitter:image" content="{{ Storage::url($siteLogo) }}">
+        @endif
 
         <!-- Favicon -->
         @if($siteLogo)
@@ -47,7 +64,7 @@
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
 
         <!-- Styles / Scripts -->
-        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
         <script>
             tailwind.config = {
                 theme: {
@@ -79,6 +96,32 @@
             .animation-delay-2000 {
                 animation-delay: 2s;
             }
+            /* Prose (blog content) styling */
+            .prose h1, .prose h2, .prose h3, .prose h4 {
+                font-weight: 700;
+                color: #111827;
+                margin-top: 1.5em;
+                margin-bottom: 0.5em;
+                line-height: 1.3;
+            }
+            .prose h1 { font-size: 2em; }
+            .prose h2 { font-size: 1.5em; border-bottom: 2px solid #fee2e2; padding-bottom: 0.3em; }
+            .prose h3 { font-size: 1.25em; color: #b91c1c; }
+            .prose p { margin-bottom: 1em; line-height: 1.75; color: #374151; }
+            .prose ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 1em; }
+            .prose ol { list-style-type: decimal; padding-left: 1.5em; margin-bottom: 1em; }
+            .prose li { margin-bottom: 0.4em; color: #374151; line-height: 1.7; }
+            .prose a { color: #b91c1c; text-decoration: underline; }
+            .prose strong { font-weight: 700; color: #111827; }
+            .prose em { font-style: italic; }
+            .prose blockquote { border-left: 4px solid #b91c1c; padding-left: 1em; color: #6b7280; font-style: italic; margin: 1.5em 0; }
+            .prose table { width: 100%; border-collapse: collapse; margin-bottom: 1em; }
+            .prose th, .prose td { border: 1px solid #e5e7eb; padding: 0.5em 0.75em; }
+            .prose th { background: #f3f4f6; font-weight: 600; }
+            .prose img { border-radius: 0.75rem; max-width: 100%; margin: 1.5em auto; display: block; }
+            .prose hr { border-color: #e5e7eb; margin: 2em 0; }
+            .prose code { background: #f3f4f6; padding: 0.15em 0.4em; border-radius: 0.25em; font-size: 0.9em; }
+            .prose pre { background: #1f2937; color: #f9fafb; padding: 1em; border-radius: 0.75rem; overflow-x: auto; }
         </style>
     </head>
     <body class="font-sans antialiased bg-gray-50 text-gray-900 selection:bg-red-700 selection:text-white">
