@@ -23,12 +23,36 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        $brandName = 'PO. Dinamis Admin';
+        $brandLogoUrl = null;
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('settings')) {
+                $siteName = \App\Models\Setting::where('key', 'site_name')->value('value') ?: 'PO. Dinamis';
+                $brandName = $siteName . ' Admin';
+                $logo = \App\Models\Setting::where('key', 'site_logo')->value('value');
+                if ($logo) {
+                    $brandLogoUrl = asset(\Illuminate\Support\Facades\Storage::url($logo));
+                }
+            }
+        } catch (\Exception $e) {}
+
+        if ($brandLogoUrl) {
+            $brandHtml = new \Illuminate\Support\HtmlString('
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img src="' . $brandLogoUrl . '" alt="Logo" style="height: 35px; border-radius: 6px;">
+                    <span style="font-weight: bold; font-size: 1.2rem; line-height: 1;">' . $brandName . '</span>
+                </div>
+            ');
+        } else {
+            $brandHtml = $brandName;
+        }
+
         return $panel
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
-            ->brandName('PO. Dinamis Admin')
+            ->login(\App\Filament\Pages\Auth\Login::class)
+            ->brandName($brandHtml)
             ->colors([
                 'primary' => Color::Red,
             ])

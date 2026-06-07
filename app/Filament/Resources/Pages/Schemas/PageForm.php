@@ -25,6 +25,10 @@ class PageForm
                 FileUpload::make('banner_image_path')
                     ->disk('public')
                     ->image()
+                    ->imageEditor()
+                    ->imageEditorAspectRatios([
+                        '16:9',
+                    ])
                     ->maxSize(2048),
                 RichEditor::make('content')
                     ->columnSpanFull(),
@@ -57,6 +61,81 @@ class PageForm
                             ->rows(3),
                     ])
                     ->visible(fn (\Filament\Schemas\Components\Utilities\Get $get) => $get('template') === 'about')
+                    ->columnSpanFull(),
+
+                \Filament\Schemas\Components\Section::make('Beranda - Keunggulan & Mengapa Pilih Kami')
+                    ->schema([
+                        \Filament\Forms\Components\Select::make('extra_data.recommended_armadas')
+                            ->label('Bus Rekomendasi Kami')
+                            ->multiple()
+                            ->options(fn () => \App\Models\Armada::pluck('name', 'id'))
+                            ->maxItems(3)
+                            ->columnSpanFull()
+                            ->helperText('Pilih maksimal 3 armada untuk ditampilkan di beranda.'),
+                        \Filament\Forms\Components\Repeater::make('extra_data.features')
+                            ->label('Keunggulan Singkat (Misal: Tepat Waktu, Aman & Nyaman)')
+                            ->schema([
+                                TextInput::make('title')->label('Judul')->required(),
+                                TextInput::make('description')->label('Deskripsi Pendek')->required(),
+                                \Filament\Forms\Components\Select::make('icon')
+                                    ->label('Icon')
+                                    ->options(function () {
+                                        $icons = [
+                                            'heroicon-o-truck' => 'Bus / Armada',
+                                            'heroicon-o-calendar-days' => 'Kalender / Jadwal',
+                                            'heroicon-o-chat-bubble-left-ellipsis' => 'Chat / Komunikasi',
+                                            'heroicon-o-phone' => 'Telepon / Kontak',
+                                            'heroicon-o-shield-check' => 'Aman / Perlindungan',
+                                            'heroicon-o-star' => 'Premium / Unggulan',
+                                            'heroicon-o-map' => 'Rute / Peta',
+                                            'heroicon-o-clock' => 'Tepat Waktu / Jam',
+                                            'heroicon-o-currency-dollar' => 'Harga / Biaya',
+                                            'heroicon-o-users' => 'Rombongan / Tim',
+                                        ];
+                                        $options = [];
+                                        foreach ($icons as $key => $label) {
+                                            $options[$key] = \Illuminate\Support\Facades\Blade::render('<span style="display:flex; align-items:center; gap:0.5rem;"><x-icon name="' . $key . '" style="width:1.5rem; height:1.5rem; flex-shrink:0;" /> <span>' . $label . '</span></span>');
+                                        }
+                                        return $options;
+                                    })
+                                    ->allowHtml()
+                                    ->searchable(),
+                            ])
+                            ->defaultItems(3)
+                            ->maxItems(3),
+                        \Filament\Forms\Components\Repeater::make('extra_data.why_choose_us')
+                            ->label('Mengapa Pilih Kami')
+                            ->schema([
+                                TextInput::make('title')->label('Alasan')->required(),
+                                Textarea::make('description')->label('Penjelasan')->required()->rows(2),
+                                \Filament\Forms\Components\Select::make('icon')
+                                    ->label('Icon')
+                                    ->options(function () {
+                                        $icons = [
+                                            'heroicon-o-truck' => 'Bus / Armada',
+                                            'heroicon-o-calendar-days' => 'Kalender / Jadwal',
+                                            'heroicon-o-chat-bubble-left-ellipsis' => 'Chat / Komunikasi',
+                                            'heroicon-o-phone' => 'Telepon / Kontak',
+                                            'heroicon-o-shield-check' => 'Aman / Perlindungan',
+                                            'heroicon-o-star' => 'Premium / Unggulan',
+                                            'heroicon-o-map' => 'Rute / Peta',
+                                            'heroicon-o-clock' => 'Tepat Waktu / Jam',
+                                            'heroicon-o-currency-dollar' => 'Harga / Biaya',
+                                            'heroicon-o-users' => 'Rombongan / Tim',
+                                        ];
+                                        $options = [];
+                                        foreach ($icons as $key => $label) {
+                                            $options[$key] = \Illuminate\Support\Facades\Blade::render('<span style="display:flex; align-items:center; gap:0.5rem;"><x-icon name="' . $key . '" style="width:1.5rem; height:1.5rem; flex-shrink:0;" /> <span>' . $label . '</span></span>');
+                                        }
+                                        return $options;
+                                    })
+                                    ->allowHtml()
+                                    ->searchable(),
+                            ])
+                            ->defaultItems(4)
+                            ->maxItems(4),
+                    ])
+                    ->visible(fn (\Filament\Schemas\Components\Utilities\Get $get) => $get('template') === 'home')
                     ->columnSpanFull(),
 
                 \Filament\Schemas\Components\Section::make('Informasi Kontak')

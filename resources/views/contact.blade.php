@@ -1,12 +1,12 @@
-<x-layouts.app>
+<x-layouts.app :title="$page->title ?? 'Hubungi Kami'" :metaTitle="$page->meta_title ?? null" :metaDescription="$page->meta_description ?? null" :metaKeywords="$page->meta_keywords ?? null">
     <x-slot:title>{{ $page->meta_title ?? ($page->title ?? 'Kontak Kami') }} - PO. Dinamis</x-slot>
 
     <!-- Header -->
-    <section class="pt-32 pb-16 bg-gray-50 relative">
+    <section class="pt-32 pb-16 relative z-10 overflow-hidden {{ empty($page->banner_image_path) ? 'bg-gray-50' : '' }}">
         @if(!empty($page->banner_image_path))
-            <div class="absolute inset-0 -z-10 h-full w-full object-cover">
-                <img src="{{ asset('storage/' . $page->banner_image_path) }}" class="h-full w-full object-cover opacity-20" alt="Banner">
-                <div class="absolute inset-0 bg-white/80"></div>
+            <div class="absolute inset-0 -z-10">
+                <img src="{{ asset('storage/' . $page->banner_image_path) }}" class="h-full w-full object-cover opacity-40" alt="Banner">
+                <div class="absolute inset-0 bg-gradient-to-b from-white/80 to-gray-50/90"></div>
             </div>
         @endif
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
@@ -85,25 +85,35 @@
                             <input type="text" name="phone" required class="w-full px-4 py-3 rounded-xl border-gray-300 bg-gray-50 focus:border-red-500 focus:ring-red-500 outline-none focus:bg-white transition-colors">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Layanan yang Ditanyakan</label>
-                            <select name="type" class="w-full px-4 py-3 rounded-xl border-gray-300 bg-gray-50 focus:border-red-500 focus:ring-red-500 outline-none focus:bg-white transition-colors">
-                                <option value="Sewa Pariwisata Harian">Sewa Pariwisata Harian</option>
-                                <option value="Study Tour / Kampus">Study Tour / Kampus</option>
-                                <option value="Ziarah Wali">Ziarah Wali</option>
-                                <option value="Gathering Perusahaan">Gathering Perusahaan</option>
-                                <option value="Lainnya">Lainnya</option>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Jenis Bus</label>
+                            <select name="type" required class="w-full px-4 py-3 rounded-xl border-gray-300 bg-gray-50 focus:border-red-500 focus:ring-red-500 outline-none focus:bg-white transition-colors">
+                                <option value="Big Bus (50 Seat)">Big Bus (50 Seat)</option>
+                                <option value="Medium Bus (31 Seat)">Medium Bus (31 Seat)</option>
+                                <option value="Minibus / Hiace (14 Seat)">Minibus / Hiace (14 Seat)</option>
+                                <option value="Belum Tahu / Konsultasi">Belum Tahu / Konsultasi</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Pesan / Rincian Perjalanan</label>
-                            <textarea name="message" rows="4" required class="w-full px-4 py-3 rounded-xl border-gray-300 bg-gray-50 focus:border-red-500 focus:ring-red-500 outline-none focus:bg-white transition-colors"></textarea>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Tujuan</label>
+                            <input type="text" name="destination" required class="w-full px-4 py-3 rounded-xl border-gray-300 bg-gray-50 focus:border-red-500 focus:ring-red-500 outline-none focus:bg-white transition-colors" placeholder="Contoh: Jogja, Bali, dll.">
                         </div>
-                        <button type="submit" class="w-full px-8 py-4 rounded-xl bg-red-700 text-white font-medium hover:bg-red-800 transition-colors shadow-lg shadow-red-500/30">
-                            Kirim Pesan
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Berangkat</label>
+                            <input type="date" name="departure_date" required class="w-full px-4 py-3 rounded-xl border-gray-300 bg-gray-50 focus:border-red-500 focus:ring-red-500 outline-none focus:bg-white transition-colors">
+                        </div>
+                        <button type="submit" class="w-full py-4 bg-gradient-to-r from-red-600 to-red-800 text-white rounded-xl font-bold hover:shadow-lg hover:shadow-red-500/30 transition-all duration-300">
+                            Kirim Pesan via WhatsApp
                         </button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Google Maps -->
+    @if(!empty($page->extra_data['google_maps_embed']))
+    <section class="w-full h-96 bg-gray-200">
+        <iframe src="{{ $page->extra_data['google_maps_embed'] }}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+    @endif
 </x-layouts.app>

@@ -20,6 +20,11 @@ class TestimonialResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Beranda';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return TestimonialForm::configure($schema);

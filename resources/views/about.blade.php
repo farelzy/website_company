@@ -1,12 +1,12 @@
-<x-layouts.app>
+<x-layouts.app :title="$page->title ?? 'Tentang Kami'" :metaTitle="$page->meta_title ?? null" :metaDescription="$page->meta_description ?? null" :metaKeywords="$page->meta_keywords ?? null">
     <x-slot:title>Tentang Kami - PO. Dinamis</x-slot>
 
     <!-- Header -->
-    <section class="pt-32 pb-16 bg-gray-50 relative">
+    <section class="pt-32 pb-16 relative z-10 overflow-hidden {{ empty($page->banner_image_path) ? 'bg-gray-50' : '' }}">
         @if(!empty($page->banner_image_path))
-            <div class="absolute inset-0 -z-10 h-full w-full object-cover">
-                <img src="{{ asset('storage/' . $page->banner_image_path) }}" class="h-full w-full object-cover opacity-20" alt="Banner">
-                <div class="absolute inset-0 bg-white/80"></div>
+            <div class="absolute inset-0 -z-10">
+                <img src="{{ asset('storage/' . $page->banner_image_path) }}" class="h-full w-full object-cover opacity-40" alt="Banner">
+                <div class="absolute inset-0 bg-gradient-to-b from-white/80 to-gray-50/90"></div>
             </div>
         @endif
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
@@ -79,27 +79,6 @@
         </div>
     </section>
 
-    <!-- Testimonial -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Apa Kata Penumpang?</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                @forelse($testimonials as $testi)
-                    <div class="bg-red-50 rounded-2xl p-8">
-                        <div class="text-red-400 mb-4">
-                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-                        </div>
-                        <p class="text-gray-700 mb-6">"{{ $testi->content }}"</p>
-                        <div>
-                            <h4 class="font-bold text-gray-900">{{ $testi->name }}</h4>
-                            <p class="text-sm text-gray-500">{{ $testi->company ?? 'Penumpang' }}</p>
-                        </div>
-                    </div>
-                @empty
-                    <p class="text-gray-500 text-center col-span-full">Belum ada ulasan.</p>
-                @endforelse
-            </div>
-        </div>
-    </section>
+
 
 </x-layouts.app>

@@ -17,9 +17,12 @@ class PostForm
         return $schema
             ->components([
                 TextInput::make('title')
-                    ->required(),
+                    ->required()
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(fn ($set, ?string $state) => $set('slug', \Illuminate\Support\Str::slug($state ?? ''))),
                 TextInput::make('slug')
-                    ->required(),
+                    ->required()
+                    ->unique(ignoreRecord: true),
                 RichEditor::make('content')
                     ->columnSpanFull(),
                 FileUpload::make('image_path')

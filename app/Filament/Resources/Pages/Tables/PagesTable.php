@@ -19,16 +19,24 @@ class PagesTable
                 TextColumn::make('slug')
                     ->searchable(),
                 TextColumn::make('title')
-                    ->searchable(),
+                    ->searchable()
+                    ->formatStateUsing(fn ($state) => strip_tags($state))
+                    ->limit(50),
                 TextColumn::make('subtitle')
-                    ->searchable(),
-                ImageColumn::make('banner_image_path'),
+                    ->searchable()
+                    ->limit(50)
+                    ->toggleable(isToggledHiddenByDefault: true),
+                ImageColumn::make('banner_image_path')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('meta_title')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('meta_description')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('meta_keywords')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

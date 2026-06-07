@@ -10,6 +10,7 @@ class Inquiry extends Model
         'name',
         'phone',
         'bus_type',
+        'destination',
         'departure_date',
         'message',
     ];

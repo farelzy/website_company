@@ -14,6 +14,7 @@ class InquiryForm
                 \Filament\Forms\Components\TextInput::make('phone')->label('Nomor WA')->readOnly(),
                 \Filament\Forms\Components\TextInput::make('bus_type')->label('Jenis Bus')->readOnly(),
                 \Filament\Forms\Components\DatePicker::make('departure_date')->label('Tgl Keberangkatan')->readOnly(),
+                \Filament\Forms\Components\TextInput::make('destination')->label('Tujuan')->readOnly(),
                 \Filament\Forms\Components\Textarea::make('message')->label('Pesan')->readOnly()->columnSpanFull(),
             ]);
     }

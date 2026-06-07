@@ -1,12 +1,12 @@
-<x-layouts.app>
+<x-layouts.app :title="$page->title ?? 'Armada & Layanan'" :metaTitle="$page->meta_title ?? null" :metaDescription="$page->meta_description ?? null" :metaKeywords="$page->meta_keywords ?? null">
     <x-slot:title>{{ $page->meta_title ?? ($page->title ?? 'Armada Pariwisata') }} - PO. Dinamis</x-slot>
 
     <!-- Header -->
-    <section class="pt-32 pb-16 bg-gray-50 relative">
+    <section class="pt-32 pb-16 relative z-10 overflow-hidden {{ empty($page->banner_image_path) ? 'bg-gray-50' : '' }}">
         @if(!empty($page->banner_image_path))
-            <div class="absolute inset-0 -z-10 h-full w-full object-cover">
-                <img src="{{ asset('storage/' . $page->banner_image_path) }}" class="h-full w-full object-cover opacity-20" alt="Banner">
-                <div class="absolute inset-0 bg-white/80"></div>
+            <div class="absolute inset-0 -z-10">
+                <img src="{{ asset('storage/' . $page->banner_image_path) }}" class="h-full w-full object-cover opacity-40" alt="Banner">
+                <div class="absolute inset-0 bg-gradient-to-b from-white/80 to-gray-50/90"></div>
             </div>
         @endif
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">

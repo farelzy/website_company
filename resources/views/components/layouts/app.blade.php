@@ -1,3 +1,9 @@
+@props([
+    'title' => null,
+    'metaTitle' => null,
+    'metaDescription' => null,
+    'metaKeywords' => null,
+])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
     <head>
@@ -10,21 +16,31 @@
             $siteTitle = \App\Models\Setting::get('site_title', $siteName . ' - Sewa Bus Pariwisata Premium');
             $siteDesc = \App\Models\Setting::get('site_description', $siteName . ' melayani sewa bus pariwisata eksekutif dengan fasilitas lengkap, aman, dan nyaman untuk keperluan wisata, ziarah, dan study tour.');
             $siteKeywords = \App\Models\Setting::get('site_keywords', 'sewa bus pariwisata, bus pariwisata murah, po dinamis, bus ziarah, study tour');
-            $siteEmail = \App\Models\Setting::get('company_email', 'hello@podinamis.co.id');
-            $sitePhone = \App\Models\Setting::get('company_phone', '0800-1-BUS-DINAMIS');
-            $siteAddress = \App\Models\Setting::get('company_address', 'Jl. Raya Bus Dinamis No. 88, Jawa Tengah');
+            $contactPage = \App\Models\Page::where('slug', 'kontak')->first();
+            $siteEmail = $contactPage?->extra_data['contact_email'] ?? 'hello@podinamis.co.id';
+            $sitePhone = $contactPage?->extra_data['contact_phone'] ?? '0800-1-BUS-DINAMIS';
+
+            $finalTitle = $metaTitle ?: ($title ? "$title - $siteName" : $siteTitle);
+            $finalDesc = $metaDescription ?: $siteDesc;
+            $finalKeywords = $metaKeywords ?: $siteKeywords;
         @endphp
 
-        <title>{{ $title ?? $siteTitle }}</title>
-        <meta name="description" content="{{ $siteDesc }}">
-        <meta name="keywords" content="{{ $siteKeywords }}">
-        <meta name="author" content="PO. Dinamis">
+        <title>{{ $finalTitle }}</title>
+        <meta name="description" content="{{ $finalDesc }}">
+        <meta name="keywords" content="{{ $finalKeywords }}">
+        <meta name="author" content="{{ $siteName }}">
         
         <!-- Open Graph / SEO -->
-        <meta property="og:title" content="{{ $title ?? $siteTitle }}">
-        <meta property="og:description" content="{{ $siteDesc }}">
+        <meta property="og:title" content="{{ $finalTitle }}">
+        <meta property="og:description" content="{{ $finalDesc }}">
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{ url()->current() }}">
+
+        <!-- Favicon -->
+        @if($siteLogo)
+            <link rel="icon" type="image/png" href="{{ Storage::url($siteLogo) }}">
+            <link rel="apple-touch-icon" href="{{ Storage::url($siteLogo) }}">
+        @endif
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

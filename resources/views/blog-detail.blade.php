@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-layouts.app :title="$post->title" :metaTitle="$post->meta_title" :metaDescription="$post->meta_description" :metaKeywords="$post->meta_keywords">
     <x-slot:title>{{ $post->meta_title ?? $post->title }} - PO. Dinamis</x-slot>
 
     <!-- Header -->
@@ -22,7 +22,7 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             @if($post->image_path)
                 <div class="mb-12 rounded-2xl overflow-hidden shadow-lg">
-                    <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}" class="w-full h-auto object-cover">
+                    <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}" class="w-full max-h-[450px] object-cover">
                 </div>
             @endif
 

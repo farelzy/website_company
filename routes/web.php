@@ -5,14 +5,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $page = \App\Models\Page::where('slug', 'home')->first();
     $galleries = \App\Models\Gallery::latest()->take(6)->get();
-    return view('welcome', compact('page', 'galleries'));
+    $testimonials = \App\Models\Testimonial::all();
+    return view('welcome', compact('page', 'galleries', 'testimonials'));
 })->name('home');
 
 Route::get('/about', function () {
     $page = \App\Models\Page::where('slug', 'about-us')->first();
     $team = \App\Models\TeamMember::all();
-    $testimonials = \App\Models\Testimonial::all();
-    return view('about', compact('page', 'team', 'testimonials'));
+    return view('about', compact('page', 'team'));
 })->name('about');
 
 Route::get('/services', function () {
@@ -28,12 +28,21 @@ Route::get('/contact', function () {
 
 Route::get('/blog', function () {
     $page = \App\Models\Page::where('slug', 'blog')->first();
-    $posts = \App\Models\Post::latest()->get();
+    $posts = \App\Models\Post::where('is_published', true)
+        ->where(function($query) {
+            $query->whereNull('published_at')->orWhere('published_at', '<=', now());
+        })
+        ->latest()->get();
     return view('blog', compact('page', 'posts'));
 })->name('blog');
 
 Route::get('/blog/{slug}', function ($slug) {
-    $post = \App\Models\Post::where('slug', $slug)->firstOrFail();
+    $post = \App\Models\Post::where('slug', $slug)
+        ->where('is_published', true)
+        ->where(function($query) {
+            $query->whereNull('published_at')->orWhere('published_at', '<=', now());
+        })
+        ->firstOrFail();
     return view('blog-detail', compact('post'));
 })->name('blog.show');
 
@@ -42,7 +51,8 @@ Route::post('/contact/submit', function (\Illuminate\Http\Request $request) {
         'name' => $request->name,
         'phone' => $request->phone,
         'bus_type' => $request->type,
-        'message' => $request->message,
+        'destination' => $request->destination,
+        'departure_date' => $request->departure_date,
     ]);
 
     $page = \App\Models\Page::where('slug', 'kontak')->first();
@@ -54,9 +64,11 @@ Route::post('/contact/submit', function (\Illuminate\Http\Request $request) {
         $adminPhone = '62' . substr($adminPhone, 1);
     }
     
-    $text = "Halo PO. Dinamis, saya {$request->name}.\n";
-    $text .= "Saya ingin bertanya mengenai layanan: *{$request->type}*.\n\n";
-    $text .= "Pesan:\n{$request->message}";
+    $text = "Halo PO. Dinamis, saya *{$request->name}*.\n";
+    $text .= "Saya ingin menyewa bus dengan detail berikut:\n";
+    $text .= "- Jenis Bus: *{$request->type}*\n";
+    $text .= "- Tujuan: *{$request->destination}*\n";
+    $text .= "- Tanggal: *{$request->departure_date}*";
     
     $waUrl = "https://wa.me/{$adminPhone}?text=" . urlencode($text);
 

@@ -34,10 +34,16 @@ class ContentSeeder extends Seeder
         // ===== ARMADA =====
         Armada::truncate();
         $armadas = [
-            ['name' => 'Big Bus Pariwisata', 'capacity' => '40-60 Seat', 'image_path' => 'https://picsum.photos/seed/bigbus/600/400', 'price_label' => 'Mulai Rp 3.500.000/hari', 'features' => ['Full AC', 'Reclining Seat', 'Karaoke System', 'Toilet Onboard', 'Bagasi Luas', 'TV Monitor'], 'order' => 1, 'is_active' => true],
-            ['name' => 'Medium Bus',         'capacity' => '25-35 Seat', 'image_path' => 'https://picsum.photos/seed/medbus/600/400', 'price_label' => 'Mulai Rp 2.000.000/hari', 'features' => ['Full AC', 'Audio System', 'Bagasi Luas', 'USB Charging', 'Karpet'], 'order' => 2, 'is_active' => true],
-            ['name' => 'Elf / Hiace Premio', 'capacity' => '12-15 Seat', 'image_path' => 'https://picsum.photos/seed/hiace/600/400',  'price_label' => 'Mulai Rp 900.000/hari',   'features' => ['Full AC', 'Kursi Empuk', 'Lincah di Kota', 'Audio System', 'Window Tint'], 'order' => 3, 'is_active' => true],
-            ['name' => 'Elf Short',          'capacity' => '8-10 Seat',  'image_path' => 'https://picsum.photos/seed/elf/600/400',    'price_label' => 'Mulai Rp 700.000/hari',   'features' => ['Full AC', 'Ekonomis', 'Gesit & Lincah', 'Bagasi Atas'], 'order' => 4, 'is_active' => true],
+            [
+                'name' => 'Legacy SR3 Suites Class', 
+                'capacity' => '22 Seat (Sleeper)', 
+                'image_path' => null,
+                'price_label' => 'Mulai Rp 5.500.000/hari', 
+                'description' => 'Bus premium model sleeper untuk perjalanan jauh yang super mewah dan privasi terjamin. Cocok untuk eksekutif atau perjalanan VVIP.',
+                'features' => ['Sleeper Seat', 'AVOD', 'Toilet', 'Smoking Area', 'Bantal & Selimut', 'Dispenser'], 
+                'order' => 1, 
+                'is_active' => true
+            ],
         ];
         foreach ($armadas as $a) {
             Armada::create($a);
@@ -70,7 +76,7 @@ class ContentSeeder extends Seeder
         for ($i = 1; $i <= 6; $i++) {
             Gallery::create([
                 'title'      => "Galeri Foto $i",
-                'image_path' => "https://picsum.photos/seed/gallery$i/600/400",
+                'image_path' => null,
                 'order'      => $i,
                 'is_active'  => true,
             ]);

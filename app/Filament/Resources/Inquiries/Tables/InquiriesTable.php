@@ -25,6 +25,9 @@ class InquiriesTable
                     ->searchable(),
                 \Filament\Tables\Columns\TextColumn::make('bus_type')
                     ->label('Jenis Bus'),
+                \Filament\Tables\Columns\TextColumn::make('destination')
+                    ->label('Tujuan')
+                    ->searchable(),
                 \Filament\Tables\Columns\TextColumn::make('departure_date')
                     ->label('Tgl Keberangkatan')
                     ->date(),
