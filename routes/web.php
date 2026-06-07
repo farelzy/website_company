@@ -75,6 +75,14 @@ Route::post('/contact/submit', function (\Illuminate\Http\Request $request) {
     return redirect()->away($waUrl);
 })->name('contact.submit');
 
+Route::get('/terms', function () {
+    return view('terms');
+})->name('terms');
+
+Route::get('/privacy', function () {
+    return view('privacy');
+})->name('privacy');
+
 Route::get('/{slug}', function ($slug) {
     // Redirect known slugs to their static routes if they differ
     $redirects = [

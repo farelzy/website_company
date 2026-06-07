@@ -177,8 +177,8 @@
                     <div>
                         <h3 class="text-white font-semibold mb-4">Legal</h3>
                         <ul class="space-y-2 text-sm">
-                            <li><a href="#" class="hover:text-red-400 transition-colors">Syarat & Ketentuan Sewa</a></li>
-                            <li><a href="#" class="hover:text-red-400 transition-colors">Kebijakan Privasi</a></li>
+                            <li><a href="{{ route('terms') }}" class="hover:text-red-400 transition-colors">Syarat & Ketentuan Sewa</a></li>
+                            <li><a href="{{ route('privacy') }}" class="hover:text-red-400 transition-colors">Kebijakan Privasi</a></li>
                         </ul>
                     </div>
                 </div>
