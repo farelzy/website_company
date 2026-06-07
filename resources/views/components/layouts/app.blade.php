@@ -117,12 +117,24 @@
 
                     <!-- Mobile menu button -->
                     <div class="md:hidden flex items-center">
-                        <button type="button" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <button type="button" id="mobile-menu-btn" class="text-gray-600 hover:text-gray-900 focus:outline-none">
                             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                             </svg>
                         </button>
                     </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Dropdown -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100 px-4 pt-2 pb-6 space-y-2 shadow-lg absolute w-full left-0 top-20">
+                <a href="{{ route('home') }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-red-700 hover:bg-red-50 transition-colors">Beranda</a>
+                <a href="{{ route('about') }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-red-700 hover:bg-red-50 transition-colors">Tentang Kami</a>
+                <a href="{{ route('services') }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-red-700 hover:bg-red-50 transition-colors">Armada & Layanan</a>
+                <a href="{{ route('blog') }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-red-700 hover:bg-red-50 transition-colors">Blog & Promo</a>
+                <a href="{{ route('contact') }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-red-700 hover:bg-red-50 transition-colors">Kontak</a>
+                <div class="pt-4 px-3">
+                    <a href="{{ route('contact') }}" class="block w-full py-2.5 rounded-full bg-red-700 text-white font-medium text-center hover:bg-red-800 transition-colors shadow-md">Sewa Sekarang</a>
                 </div>
             </div>
         </header>
@@ -170,10 +182,20 @@
                         </ul>
                     </div>
                 </div>
-                <div class="mt-12 pt-8 border-t border-gray-800 text-sm text-center">
-                    <p>&copy; {{ date('Y') }} {{ $siteName }}. All rights reserved.</p>
                 </div>
             </div>
         </footer>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const btn = document.getElementById('mobile-menu-btn');
+                const menu = document.getElementById('mobile-menu');
+                if (btn && menu) {
+                    btn.addEventListener('click', () => {
+                        menu.classList.toggle('hidden');
+                    });
+                }
+            });
+        </script>
     </body>
 </html>

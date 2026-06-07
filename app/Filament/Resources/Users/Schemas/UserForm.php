@@ -32,6 +32,7 @@ class UserForm
                     ->dehydrated(fn ($state) => filled($state))
                     ->required(fn (string $operation): bool => $operation === 'create')
                     ->label('Password')
+                    ->helperText('Kosongkan jika tidak ingin mengubah password.')
                     ->autocomplete('new-password'),
                 Select::make('role')
                     ->options([
@@ -46,8 +47,12 @@ class UserForm
                         'P' => 'Perempuan',
                     ])
                     ->label('Jenis Kelamin'),
-                DatePicker::make('birthdate')->label('Tanggal Lahir'),
-                TextInput::make('phone')->label('Nomor Telepon (Opsional)'),
+                DatePicker::make('birthdate')
+                    ->label('Tanggal Lahir')
+                    ->disabled(fn () => auth()->user()->role !== 'superadmin'),
+                TextInput::make('phone')
+                    ->label('Nomor Telepon (Opsional)')
+                    ->disabled(fn () => auth()->user()->role !== 'superadmin'),
                 Toggle::make('is_active')
                     ->label('Status Aktif')
                     ->default(true)
