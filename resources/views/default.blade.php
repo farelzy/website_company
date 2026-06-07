@@ -5,7 +5,7 @@
     <section class="pt-32 pb-16 bg-gray-50 relative">
         @if(!empty($page->banner_image_path))
             <div class="absolute inset-0 -z-10 h-full w-full object-cover">
-                <img src="{{ asset('storage/' . $page->banner_image_path) }}" class="h-full w-full object-cover opacity-20" alt="Banner">
+                <img src="{{ asset('storage/app/public/' . $page->banner_image_path) }}" class="h-full w-full object-cover opacity-20" alt="Banner">
                 <div class="absolute inset-0 bg-white/80"></div>
             </div>
         @endif

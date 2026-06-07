@@ -5,7 +5,7 @@
     <section class="pt-32 pb-16 relative z-10 overflow-hidden {{ empty($page->banner_image_path) ? 'bg-gray-50' : '' }}">
         @if(!empty($page->banner_image_path))
             <div class="absolute inset-0 -z-10">
-                <img src="{{ asset('storage/' . $page->banner_image_path) }}" class="h-full w-full object-cover opacity-40" alt="Banner">
+                <img src="{{ asset('storage/app/public/' . $page->banner_image_path) }}" class="h-full w-full object-cover opacity-40" alt="Banner">
                 <div class="absolute inset-0 bg-gradient-to-b from-white/80 to-gray-50/90"></div>
             </div>
         @endif
@@ -34,7 +34,7 @@
                     <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 group">
                         <div class="relative h-64 bg-gray-200 overflow-hidden">
                             @if($bus->image_path)
-                                <img src="{{ asset('storage/' . $bus->image_path) }}" alt="{{ $bus->name }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                                <img src="{{ asset('storage/app/public/' . $bus->image_path) }}" alt="{{ $bus->name }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                             @else
                                 <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                             @endif

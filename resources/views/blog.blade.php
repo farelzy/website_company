@@ -5,7 +5,7 @@
     <section class="pt-32 pb-16 relative z-10 overflow-hidden {{ empty($page?->banner_image_path) ? 'bg-gray-50' : '' }}">
         @if(!empty($page?->banner_image_path))
             <div class="absolute inset-0 -z-10">
-                <img src="{{ asset('storage/' . $page?->banner_image_path) }}" class="h-full w-full object-cover opacity-40" alt="Banner">
+                <img src="{{ asset('storage/app/public/' . $page?->banner_image_path) }}" class="h-full w-full object-cover opacity-40" alt="Banner">
                 <div class="absolute inset-0 bg-gradient-to-b from-white/80 to-gray-50/90"></div>
             </div>
         @endif
@@ -33,7 +33,7 @@
                 @forelse($posts as $post)
                     <article class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col">
                         @if($post->image_path)
-                            <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
+                            <img src="{{ asset('storage/app/public/' . $post->image_path) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
                         @else
                             <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-400">
                                 <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>

@@ -8,7 +8,7 @@
                 @php
                     $imgSrc = str_starts_with($page->banner_image_path, 'http') 
                                 ? $page->banner_image_path 
-                                : asset('storage/' . $page->banner_image_path);
+                                : asset('storage/app/public/' . $page->banner_image_path);
                 @endphp
                 <img src="{{ $imgSrc }}" class="h-full w-full object-cover" alt="Banner">
                 <div class="absolute inset-0 bg-black/60"></div>
@@ -96,7 +96,7 @@
                         @php
                             $imgSrc = str_starts_with($bus->image_path, 'http') 
                                         ? $bus->image_path 
-                                        : asset('storage/' . $bus->image_path);
+                                        : asset('storage/app/public/' . $bus->image_path);
                         @endphp
                         <img src="{{ $imgSrc }}" alt="{{ $bus->name }}" class="absolute inset-0 w-full h-full object-cover">
                         <div class="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 text-red-700 font-bold text-xs backdrop-blur-sm shadow-sm">
@@ -170,7 +170,7 @@
                 @forelse($galleries->take(6) as $gallery)
                     <div class="rounded-2xl overflow-hidden shadow-lg group bg-gray-100 flex items-center justify-center">
                         @if(!empty($gallery->image_path))
-                            <img src="{{ asset('storage/' . $gallery->image_path) }}" alt="{{ $gallery->title }}" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+                            <img src="{{ asset('storage/app/public/' . $gallery->image_path) }}" alt="{{ $gallery->title }}" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
                         @else
                             <div class="w-full h-64 flex flex-col items-center justify-center text-gray-400 transform group-hover:scale-110 transition-transform duration-500">
                                 <x-icon name="heroicon-o-truck" class="w-20 h-20 mb-2" />

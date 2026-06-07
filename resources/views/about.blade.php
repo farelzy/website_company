@@ -5,7 +5,7 @@
     <section class="pt-32 pb-16 relative z-10 overflow-hidden {{ empty($page->banner_image_path) ? 'bg-gray-50' : '' }}">
         @if(!empty($page->banner_image_path))
             <div class="absolute inset-0 -z-10">
-                <img src="{{ asset('storage/' . $page->banner_image_path) }}" class="h-full w-full object-cover opacity-40" alt="Banner">
+                <img src="{{ asset('storage/app/public/' . $page->banner_image_path) }}" class="h-full w-full object-cover opacity-40" alt="Banner">
                 <div class="absolute inset-0 bg-gradient-to-b from-white/80 to-gray-50/90"></div>
             </div>
         @endif
@@ -60,7 +60,7 @@
                 @forelse($team as $member)
                     <div class="bg-white rounded-xl shadow p-6 text-center">
                         @if($member->photo_path)
-                            <img src="{{ asset('storage/' . $member->photo_path) }}" alt="{{ $member->name }}" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                            <img src="{{ asset('storage/app/public/' . $member->photo_path) }}" alt="{{ $member->name }}" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
                         @else
                             <div class="w-24 h-24 rounded-full bg-gray-200 mx-auto mb-4 flex items-center justify-center text-gray-400">
                                 <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
